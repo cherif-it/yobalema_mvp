@@ -53,16 +53,20 @@ model TransportAvailability {
   bookings Booking[]
 }
 
+
 model Booking {
   id            String   @id @default(cuid())
   status        BookingStatus @default(PENDING)
   createdAt     DateTime @default(now())
 
   shipmentId    String
-  transporterId  String
+  transporterId String
 
   shipment      Shipment @relation(fields: [shipmentId], references: [id])
   transporter   User @relation(fields: [transporterId], references: [id])
+
+  transportAvailabilityId String?
+  transportAvailability   TransportAvailability? @relation(fields: [transportAvailabilityId], references: [id])
 }
 
 enum Role {
