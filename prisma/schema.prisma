@@ -6,7 +6,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model User {
   id        String   @id @default(cuid())
   name      String?
@@ -15,13 +14,13 @@ model User {
   role      Role     @default(EXPEDITOR)
   createdAt DateTime @default(now())
 
-  shipments Shipment[] @relation("UserShipments")
-  bookings  Booking[]
+  shipments      Shipment[]              @relation("UserShipments")
+  bookings       Booking[]
   availabilities TransportAvailability[]
 }
 
 model Shipment {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   title       String
   description String?
   origin      String
@@ -29,41 +28,40 @@ model Shipment {
   date        DateTime
   weight      Float
   status      ShipmentStatus @default(PENDING)
-  createdAt   DateTime @default(now())
+  createdAt   DateTime       @default(now())
 
   expeditorId String
-  expeditor   User @relation("UserShipments", fields: [expeditorId], references: [id])
+  expeditor   User   @relation("UserShipments", fields: [expeditorId], references: [id])
 
   bookings Booking[]
 }
 
 model TransportAvailability {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   fromLocation  String
   toLocation    String
   departureDate DateTime
   returnDate    DateTime?
   capacity      Float
   notes         String?
-  createdAt    DateTime @default(now())
+  createdAt     DateTime  @default(now())
 
   transporterId String
-  transporter   User @relation(fields: [transporterId], references: [id])
+  transporter   User   @relation(fields: [transporterId], references: [id])
 
   bookings Booking[]
 }
 
-
 model Booking {
-  id            String   @id @default(cuid())
-  status        BookingStatus @default(PENDING)
-  createdAt     DateTime @default(now())
+  id        String        @id @default(cuid())
+  status    BookingStatus @default(PENDING)
+  createdAt DateTime      @default(now())
 
   shipmentId    String
   transporterId String
 
-  shipment      Shipment @relation(fields: [shipmentId], references: [id])
-  transporter   User @relation(fields: [transporterId], references: [id])
+  shipment    Shipment @relation(fields: [shipmentId], references: [id])
+  transporter User     @relation(fields: [transporterId], references: [id])
 
   transportAvailabilityId String?
   transportAvailability   TransportAvailability? @relation(fields: [transportAvailabilityId], references: [id])
