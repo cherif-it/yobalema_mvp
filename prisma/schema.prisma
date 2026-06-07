@@ -31,20 +31,18 @@ model User {
 }
 
 model Shipment {
-  id          String         @id @default(cuid())
+  id          String   @id @default(cuid())
   title       String
-  description String?
+  description String
   origin      String
   destination String
   date        DateTime
   weight      Float
   status      ShipmentStatus @default(PENDING)
-  createdAt   DateTime       @default(now())
+  createdAt   DateTime @default(now())
 
   expeditorId String
-  expeditor   User   @relation("UserShipments", fields: [expeditorId], references: [id])
-
-  bookings Booking[]
+  expeditor   User @relation("UserShipments", fields: [expeditorId], references: [id])
 }
 
 model TransportAvailability {
