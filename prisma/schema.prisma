@@ -46,19 +46,17 @@ model Shipment {
 }
 
 model TransportAvailability {
-  id            String    @id @default(cuid())
+  id            String   @id @default(cuid())
   fromLocation  String
   toLocation    String
   departureDate DateTime
   returnDate    DateTime?
   capacity      Float
   notes         String?
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime @default(now())
 
   transporterId String
-  transporter   User   @relation(fields: [transporterId], references: [id])
-
-  bookings Booking[]
+  transporter   User @relation("UserTransportAvailabilities", fields: [transporterId], references: [id])
 }
 
 model Booking {
