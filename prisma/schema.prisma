@@ -10,15 +10,21 @@ datasource db {
 
 
 model User {
-  id       String  @id @default(cuid())
-  name     String?
-  email    String  @unique
-  password String?
-  role     Role    @default(EXPEDITOR)
-
+  id        String  @id @default(cuid())
+  name      String?
+  email     String  @unique
+  password  String?
+  role      Role    @default(EXPEDITOR)
   createdAt DateTime @default(now())
 
-  Booking Booking[]
+  // relations expeditor
+  shipments Shipment[] @relation("UserShipments")
+
+  // relations transporter
+  transportAvailabilities TransportAvailability[] @relation("UserTransportAvailabilities")
+
+  // bookings
+  bookings Booking[]
 
   accounts Account[]
   sessions Session[]
