@@ -1,34 +1,38 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function ShipmentsPage() {
   const [shipments, setShipments] = useState([]);
 
   useEffect(() => {
-    fetch("/api/shipment")
+    fetch("/api/shipments")
       .then((res) => res.json())
       .then(setShipments);
   }, []);
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">
-        📦 My Shipments
-      </h1>
+      <div className="flex justify-between mb-4">
+        <h1 className="text-xl font-bold">📦 Shipments</h1>
+        <Link href="/dashboard/shipments/new" className="bg-black text-white px-3 py-1 rounded">
+          New
+        </Link>
+      </div>
 
-      <div className="grid gap-4">
+      <div className="space-y-3">
         {shipments.map((s: any) => (
-          <div
+          <Link
             key={s.id}
-            className="bg-white p-4 border rounded"
+            href={`/dashboard/shipments/${s.id}`}
+            className="block border p-3 rounded hover:bg-gray-50"
           >
-            <h2 className="font-bold">{s.title}</h2>
-            <p>{s.origin} → {s.destination}</p>
+            <p className="font-bold">{s.title}</p>
             <p className="text-sm text-gray-500">
-              {s.weight} kg
+              {s.origin} → {s.destination}
             </p>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
