@@ -1,62 +1,101 @@
+"use client";
+
 import Link from "next/link";
 
-export default function Dashboard() {
+export default function DashboardPage() {
   return (
-    <div className="p-6 space-y-6">
-      {/* HEADER */}
-      <div>
-        <h1 className="text-2xl font-bold">📊 Dashboard</h1>
-        <p className="text-gray-500">
+    <div className="h-screen flex bg-gray-100">
+
+      {/* SIDEBAR */}
+      <aside className="w-64 bg-blue-950 text-white p-4 flex flex-col justify-between">
+        <div>
+          <h1 className="text-2xl font-bold mb-8">🚚 Yobalema</h1>
+
+          <nav className="space-y-3">
+            <Link href="/dashboard" className="block p-2 rounded bg-blue-800">
+              📊 Dashboard
+            </Link>
+
+            <Link href="/dashboard/shipments" className="block p-2 rounded hover:bg-blue-800">
+              📦 Shipments
+            </Link>
+
+            <Link href="/dashboard/matches" className="block p-2 rounded hover:bg-blue-800">
+              🤝 Matches
+            </Link>
+
+            <Link href="/dashboard/bookings" className="block p-2 rounded hover:bg-blue-800">
+              📅 Bookings
+            </Link>
+
+            <Link href="/dashboard/availabilities" className="block p-2 rounded hover:bg-blue-800">
+              🚛 Availabilities
+            </Link>
+          </nav>
+        </div>
+
+        {/* USER */}
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-white rounded-full" />
+          <span className="text-sm">User</span>
+        </div>
+      </aside>
+
+      {/* MAIN */}
+      <main className="flex-1 p-10">
+
+        <h1 className="text-3xl font-bold mb-2">
+          📊 Dashboard
+        </h1>
+
+        <p className="text-gray-600 mb-6">
           Welcome to your logistics platform
         </p>
-      </div>
 
-      {/* QUICK ACTIONS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Link
-          href="/create-shipment"
-          className="p-4 bg-black text-white rounded"
-        >
-          ➕ Create Shipment
-        </Link>
+        {/* STATS CARDS */}
+        <div className="grid grid-cols-4 gap-4 mb-10">
+          <div className="bg-white p-4 rounded shadow">
+            📦 Shipments
+          </div>
 
-        <Link
-          href="/create-availability"
-          className="p-4 bg-gray-800 text-white rounded"
-        >
-          🚚 Add Availability
-        </Link>
+          <div className="bg-white p-4 rounded shadow">
+            🤝 Matches
+          </div>
 
-        <Link
-          href="/dashboard/matches"
-          className="p-4 bg-gray-200 rounded"
-        >
-          🤝 View Matches
-        </Link>
-      </div>
+          <div className="bg-white p-4 rounded shadow">
+            📅 Bookings
+          </div>
 
-      {/* INFO CARDS */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 border rounded">
-          <p className="text-sm text-gray-500">Shipments</p>
-          <p className="text-xl font-bold">--</p>
+          <div className="bg-white p-4 rounded shadow">
+            🚛 Availabilities
+          </div>
         </div>
 
-        <div className="p-4 border rounded">
-          <p className="text-sm text-gray-500">Bookings</p>
-          <p className="text-xl font-bold">--</p>
+        {/* QUICK ACTIONS */}
+        <div className="space-y-3">
+          <Link
+            href="/dashboard/shipments/new"
+            className="block bg-blue-600 text-white p-3 rounded"
+          >
+            ➕ Create Shipment
+          </Link>
+
+          <Link
+            href="/dashboard/availabilities/new"
+            className="block bg-green-600 text-white p-3 rounded"
+          >
+            🚛 Add Availability
+          </Link>
+
+          <Link
+            href="/dashboard/matches"
+            className="block bg-black text-white p-3 rounded"
+          >
+            🤝 View Matches
+          </Link>
         </div>
 
-        <div className="p-4 border rounded">
-          <p className="text-sm text-gray-500">Matches</p>
-          <p className="text-xl font-bold">--</p>
-        </div>
-
-        <div className="p-4 border rounded">
-          <p className="text-sm text-gray-500">Availabilities</p>
-          <p className="text-xl font-bold">--</p>
-        </div>
-      </div>
+      </main>
     </div>
   );
 }
