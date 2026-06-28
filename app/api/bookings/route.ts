@@ -2,26 +2,51 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const bookings = await prisma.booking.findMany({
-    include: {
-      shipment: true,
-      availability: true,
-    },
-  });
+  try {
+    const bookings = await prisma.booking.findMany({
+      include: {
+        shipment: true,
+        transporter: true,
+        transportAvailability: true,
+      },
+    });
 
-  return NextResponse.json(bookings);
+    return NextResponse.json(bookings);
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Unable to fetch bookings" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(req: Request) {
-  const body = await req.json();
+  try {
+    const body = await req.json();
 
-  const booking = await prisma.booking.create({
-    data: {
-      shipmentId: body.shipmentId,
-      availabilityId: body.availabilityId,
-      status: "PENDING",
-    },
-  });
+    const booking = await prisma.booking.create({
+      data: {
+        shipmentId: body.shipmentId,
+        transporterId: body.transporterId,
+        transportAvailabilityId: body.transportAvailabilityId,
+        status: "PENDING",
+      },
+      include: {
+        shipment: true,
+        transporter: true,
+        transportAvailability: true,
+      },
+    });
 
-  return NextResponse.json(booking);
+    return NextResponse.json(booking);
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Unable to create booking" },
+      { status: 500 }
+    );
+  }
 }
