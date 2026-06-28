@@ -1,39 +1,36 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 
-export default function ShipmentDetail({ params }: any) {
-  const [data, setData] = useState<any>(null);
+export default function ShipmentDetail() {
+  const { id } = useParams();
+  const [shipment, setShipment] = useState<any>(null);
 
   useEffect(() => {
-    fetch(`/api/shipments/${params.id}/matches`)
-      .then((res) => res.json())
-      .then(setData);
-  }, [params.id]);
+    fetch(`/api/shipments/${id}`)
+      .then((r) => r.json())
+      .then(setShipment);
+  }, [id]);
 
-  if (!data) return <p>Loading...</p>;
+  if (!shipment) return <p className="p-6">Loading...</p>;
 
   return (
-    <div>
-      <h1 className="text-xl font-bold">📦 Shipment</h1>
+    <div className="p-6 space-y-3">
+      <h1 className="text-2xl font-bold">
+        📦 {shipment.origin} → {shipment.destination}
+      </h1>
 
-      <p>
-        {data.shipment.origin} → {data.shipment.destination}
-      </p>
+      <p>{shipment.description}</p>
+      <p>⚖️ {shipment.weight} kg</p>
+      <p>Status: {shipment.status}</p>
 
-      <h2 className="mt-4 font-bold">🚚 Matches</h2>
-
-      <div className="space-y-2 mt-2">
-        {data.matches.map((m: any) => (
-          <div key={m.id} className="border p-3 rounded">
-            <p>
-              {m.fromLocation} → {m.toLocation}
-            </p>
-            <p>Capacity: {m.capacity}</p>
-            <p>Driver: {m.transporter?.name}</p>
-          </div>
-        ))}
-      </div>
+      <a
+        className="inline-block mt-4 bg-black text-white px-4 py-2 rounded"
+        href={`/dashboard/matches/${shipment.id}`}
+      >
+        View Matches
+      </a>
     </div>
   );
 }
