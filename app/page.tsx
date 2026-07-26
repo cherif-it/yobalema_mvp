@@ -1,117 +1,64 @@
-"use client";
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import Features from "@/components/Features";
+import PopularRoutes from "@/components/PopularRoutes";
+import Footer from "@/components/Footer";
 
-import Link from "next/link";
-
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="h-screen flex bg-gray-100">
+    <main className="min-h-screen bg-white">
 
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-blue-950 text-white p-4 flex flex-col justify-between">
-        <div>
-          <h1 className="text-2xl font-bold mb-8">🚚 Yobalema</h1>
+      <Navbar />
 
-          <nav className="space-y-3">
-            <Link href="/dashboard" className="block hover:bg-blue-800 p-2 rounded">
-              📊 Dashboard
-            </Link>
+      <Hero />
 
-            <Link href="/dashboard/shipments" className="block hover:bg-blue-800 p-2 rounded">
-              📦 Shipments
-            </Link>
+      <Features />
 
-            <Link href="/dashboard/matches" className="block hover:bg-blue-800 p-2 rounded">
-              🤝 Matches
-            </Link>
+      <PopularRoutes />
 
-            <Link href="/dashboard/bookings" className="block hover:bg-blue-800 p-2 rounded">
-              📅 Bookings
-            </Link>
+      {/* Call To Action */}
 
-            <Link href="/dashboard/availabilities" className="block hover:bg-blue-800 p-2 rounded">
-              🚛 Availabilities
-            </Link>
-          </nav>
-        </div>
+      <section className="bg-blue-600 py-24 text-white">
+        <div className="mx-auto flex max-w-5xl flex-col items-center px-6 text-center">
 
-        {/* USER */}
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-white rounded-full" />
-          <span className="text-sm">User</span>
-        </div>
-      </aside>
+          <span className="rounded-full bg-white/20 px-4 py-2 text-sm font-semibold">
+            READY TO START?
+          </span>
 
-      {/* MAIN */}
-      <main className="flex-1 relative">
+          <h2 className="mt-6 text-4xl font-bold lg:text-5xl">
+            Connect Your Freight
+            <br />
+            With Trusted Transporters
+          </h2>
 
-        {/* MAP BACKGROUND */}
-        <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1"
-            className="w-full h-full object-cover opacity-40"
-          />
-        </div>
-
-        {/* CONTENT */}
-        <div className="relative p-10">
-
-          <h1 className="text-3xl font-bold mb-2">
-            Get your freight quote now
-          </h1>
-
-          <p className="text-gray-700 mb-6">
-            Connect shipments to transporters instantly across Africa.
+          <p className="mt-6 max-w-2xl text-lg text-blue-100">
+            Join Yobalema today and simplify freight transportation across
+            Africa using intelligent shipment matching.
           </p>
 
-          {/* SEARCH BOX */}
-          <div className="bg-white p-4 rounded-xl shadow-lg flex gap-3 items-center">
-            <input
-              placeholder="Origin"
-              className="border p-2 rounded w-40"
-            />
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
 
-            <input
-              placeholder="Destination"
-              className="border p-2 rounded w-40"
-            />
+            <a
+              href="/register"
+              className="rounded-xl bg-white px-8 py-4 font-semibold text-blue-600 transition hover:bg-slate-100"
+            >
+              Create Free Account
+            </a>
 
-            <select className="border p-2 rounded">
-              <option>Cargo Type</option>
-              <option>Food</option>
-              <option>Electronics</option>
-              <option>Furniture</option>
-            </select>
+            <a
+              href="/login"
+              className="rounded-xl border border-white px-8 py-4 font-semibold transition hover:bg-white hover:text-blue-600"
+            >
+              Login
+            </a>
 
-            <button className="bg-blue-600 text-white px-4 py-2 rounded">
-              Search
-            </button>
-          </div>
-
-          {/* ROUTES */}
-          <div className="mt-10">
-            <h2 className="font-bold mb-4">Popular routes</h2>
-
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                "New York → Boston",
-                "Oakland → San Francisco",
-                "Baltimore → Pittsburgh",
-                "Dakar → Abidjan",
-                "Paris → Lyon",
-                "London → Manchester",
-              ].map((route) => (
-                <div
-                  key={route}
-                  className="bg-white p-3 rounded shadow hover:bg-gray-50 cursor-pointer"
-                >
-                  {route}
-                </div>
-              ))}
-            </div>
           </div>
 
         </div>
-      </main>
-    </div>
+      </section>
+
+      <Footer />
+
+    </main>
   );
 }
