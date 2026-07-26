@@ -1,12 +1,12 @@
 import Link from "next/link";
 import {
   Truck,
-  Facebook,
-  Linkedin,
-  Twitter,
   Mail,
   Phone,
   MapPin,
+  Globe,
+  MessageCircle,
+  Send,
 } from "lucide-react";
 
 export default function Footer() {
@@ -155,21 +155,21 @@ export default function Footer() {
                 href="#"
                 className="rounded-xl bg-slate-800 p-3 transition hover:bg-blue-600"
               >
-                <Facebook size={18} />
+                <Globe size={18} />
               </a>
 
               <a
                 href="#"
                 className="rounded-xl bg-slate-800 p-3 transition hover:bg-blue-600"
               >
-                <Linkedin size={18} />
+                <MessageCircle size={18} />
               </a>
 
               <a
                 href="#"
                 className="rounded-xl bg-slate-800 p-3 transition hover:bg-blue-600"
               >
-                <Twitter size={18} />
+                <Send size={18} />
               </a>
 
             </div>
