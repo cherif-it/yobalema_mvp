@@ -4,6 +4,7 @@ import Features from "@/components/Features";
 import PopularRoutes from "@/components/PopularRoutes";
 import Footer from "@/components/Footer";
 import TrustedBy from "@/components/TrustedBy";
+import HowItWorks from "@/components/HowItWorks";
 
 export default function HomePage() {
   return (
@@ -14,6 +15,8 @@ export default function HomePage() {
       <Hero />
 
       <TrustedBy />
+
+      <HowItWorks />
 
       <Features />
 
