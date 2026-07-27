@@ -5,6 +5,7 @@ import PopularRoutes from "@/components/PopularRoutes";
 import Footer from "@/components/Footer";
 import TrustedBy from "@/components/TrustedBy";
 import HowItWorks from "@/components/HowItWorks";
+import AfricaNetwork from "@/components/AfricaNetwork";
 
 export default function HomePage() {
   return (
@@ -17,6 +18,8 @@ export default function HomePage() {
       <TrustedBy />
 
       <HowItWorks />
+
+      <AfricaNetwork />
 
       <Features />
 
