@@ -1,51 +1,74 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Package, Truck, MapPinned } from "lucide-react";
+import {
+  ArrowRight,
+  Package,
+  Truck,
+  Globe,
+  ShieldCheck,
+  TrendingUp,
+  MapPin,
+} from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-slate-50">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-slate-100" />
+    <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-white">
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center px-6 py-20 lg:flex-row">
+      {/* Background */}
+
+      <div className="absolute left-0 top-0 h-[550px] w-[550px] rounded-full bg-blue-100 blur-3xl opacity-60" />
+
+      <div className="absolute right-0 top-32 h-[450px] w-[450px] rounded-full bg-cyan-100 blur-3xl opacity-60" />
+
+      <div className="relative mx-auto grid max-w-7xl gap-20 px-6 py-24 lg:grid-cols-2 lg:items-center">
 
         {/* LEFT */}
-        <div className="flex-1">
+
+        <div>
 
           <span className="rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
-            🚚 Smart Freight Matching Platform
+            🚚 Africa's Smart Freight Platform
           </span>
 
-          <h1 className="mt-6 text-5xl font-extrabold leading-tight text-slate-900 lg:text-6xl">
-            Move Freight
-            <br />
+          <h1 className="mt-8 text-5xl font-extrabold leading-tight text-slate-900 lg:text-7xl">
+
+            Ship
             <span className="text-blue-600">
-              Faster.
+              {" "}Smarter.
             </span>
+
+            <br />
+
+            Deliver
+            <span className="text-blue-600">
+              {" "}Faster.
+            </span>
+
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-            Yobalema connects shippers and transporters through intelligent
-            freight matching. Create shipments, discover available transporters
-            and book deliveries across Africa.
+          <p className="mt-8 max-w-xl text-xl leading-9 text-slate-600">
+
+            Connect shippers with verified transporters,
+            automate freight matching,
+            and manage logistics across Africa from one platform.
+
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-10 flex flex-wrap gap-5">
 
             <Link
               href="/register"
-              className="flex items-center gap-2 rounded-xl bg-blue-600 px-6 py-4 font-semibold text-white shadow-lg transition hover:bg-blue-700"
+              className="flex items-center gap-3 rounded-2xl bg-blue-600 px-8 py-5 font-semibold text-white shadow-xl transition hover:-translate-y-1 hover:bg-blue-700"
             >
-              Get Started
+              Start Free
 
               <ArrowRight size={18} />
             </Link>
 
             <Link
               href="/login"
-              className="rounded-xl border border-slate-300 bg-white px-6 py-4 font-semibold text-slate-700 transition hover:bg-slate-100"
+              className="rounded-2xl border border-slate-300 bg-white px-8 py-5 font-semibold text-slate-700 transition hover:bg-slate-100"
             >
               Login
             </Link>
@@ -54,15 +77,15 @@ export default function Hero() {
 
           {/* STATS */}
 
-          <div className="mt-14 grid grid-cols-3 gap-6">
+          <div className="mt-16 grid grid-cols-3 gap-8">
 
             <div>
 
-              <h2 className="text-3xl font-bold text-blue-600">
+              <h2 className="text-4xl font-bold text-blue-600">
                 5K+
               </h2>
 
-              <p className="text-slate-500">
+              <p className="mt-2 text-slate-500">
                 Shipments
               </p>
 
@@ -70,11 +93,11 @@ export default function Hero() {
 
             <div>
 
-              <h2 className="text-3xl font-bold text-blue-600">
-                2K+
+              <h2 className="text-4xl font-bold text-blue-600">
+                1.2K
               </h2>
 
-              <p className="text-slate-500">
+              <p className="mt-2 text-slate-500">
                 Transporters
               </p>
 
@@ -82,12 +105,12 @@ export default function Hero() {
 
             <div>
 
-              <h2 className="text-3xl font-bold text-blue-600">
+              <h2 className="text-4xl font-bold text-blue-600">
                 98%
               </h2>
 
-              <p className="text-slate-500">
-                Match Success
+              <p className="mt-2 text-slate-500">
+                Success Rate
               </p>
 
             </div>
@@ -98,62 +121,101 @@ export default function Hero() {
 
         {/* RIGHT */}
 
-        <div className="mt-16 flex flex-1 justify-center lg:mt-0">
+        <div className="relative">
 
-          <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-2xl">
+          {/* Main Card */}
 
-            <div className="mb-6 flex items-center gap-3">
+          <div className="rounded-[32px] border border-slate-200 bg-white p-8 shadow-2xl">
 
-              <Package className="text-blue-600" />
+            <div className="mb-8 flex items-center justify-between">
 
-              <h3 className="text-xl font-bold">
-                Create Shipment
-              </h3>
+              <div>
 
-            </div>
-
-            <div className="space-y-4">
-
-              <input
-                placeholder="Origin"
-                className="w-full rounded-xl border p-3"
-              />
-
-              <input
-                placeholder="Destination"
-                className="w-full rounded-xl border p-3"
-              />
-
-              <input
-                placeholder="Weight (kg)"
-                className="w-full rounded-xl border p-3"
-              />
-
-              <button className="w-full rounded-xl bg-blue-600 p-4 font-semibold text-white transition hover:bg-blue-700">
-                Search Transporters
-              </button>
-
-            </div>
-
-            <div className="mt-8 grid grid-cols-2 gap-4">
-
-              <div className="rounded-xl bg-slate-100 p-4">
-
-                <Truck className="mb-2 text-blue-600" />
-
-                <p className="font-semibold">
-                  Live Transporters
+                <p className="text-sm text-slate-500">
+                  Live Shipment
                 </p>
+
+                <h3 className="text-2xl font-bold">
+                  Dakar → Abidjan
+                </h3>
 
               </div>
 
-              <div className="rounded-xl bg-slate-100 p-4">
+              <div className="rounded-2xl bg-blue-600 p-4 text-white">
+                <Truck size={30} />
+              </div>
 
-                <MapPinned className="mb-2 text-blue-600" />
+            </div>
 
-                <p className="font-semibold">
-                  Smart Matching
+            <div className="space-y-6">
+
+              <div className="flex items-center justify-between rounded-2xl bg-slate-50 p-5">
+
+                <div className="flex items-center gap-4">
+
+                  <MapPin className="text-blue-600" />
+
+                  <div>
+
+                    <p className="font-semibold">
+                      Origin
+                    </p>
+
+                    <p className="text-sm text-slate-500">
+                      Dakar
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <Package className="text-blue-600" />
+
+              </div>
+
+              <div className="flex items-center justify-between rounded-2xl bg-slate-50 p-5">
+
+                <div className="flex items-center gap-4">
+
+                  <Globe className="text-green-600" />
+
+                  <div>
+
+                    <p className="font-semibold">
+                      Destination
+                    </p>
+
+                    <p className="text-sm text-slate-500">
+                      Abidjan
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <TrendingUp className="text-green-600" />
+
+              </div>
+
+              <div className="rounded-2xl bg-blue-600 p-6 text-white">
+
+                <div className="flex items-center gap-3">
+
+                  <ShieldCheck />
+
+                  Verified Transporter Found
+
+                </div>
+
+                <p className="mt-4 text-blue-100">
+
+                  Match probability
+
                 </p>
+
+                <h2 className="mt-2 text-5xl font-bold">
+                  96%
+                </h2>
 
               </div>
 
@@ -161,9 +223,38 @@ export default function Hero() {
 
           </div>
 
+          {/* Floating Card */}
+
+          <div className="absolute -bottom-10 -left-10 hidden rounded-3xl bg-white p-6 shadow-2xl lg:block">
+
+            <p className="text-sm text-slate-500">
+              Monthly Growth
+            </p>
+
+            <h2 className="mt-2 text-4xl font-bold text-green-600">
+              +38%
+            </h2>
+
+          </div>
+
+          {/* Floating Card */}
+
+          <div className="absolute -right-8 -top-8 hidden rounded-3xl bg-white p-6 shadow-2xl lg:block">
+
+            <p className="text-sm text-slate-500">
+              Active Matches
+            </p>
+
+            <h2 className="mt-2 text-4xl font-bold text-blue-600">
+              184
+            </h2>
+
+          </div>
+
         </div>
 
       </div>
+
     </section>
   );
 }
