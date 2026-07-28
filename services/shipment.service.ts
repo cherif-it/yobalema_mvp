@@ -1,17 +1,32 @@
 import * as repository from "@/repositories/shipment.repository";
+import { NotFoundError } from "@/utils/errors";
 
 export async function getAllShipments() {
-  return repository.findAllShipments();
+  return repository.findAll();
 }
 
 export async function getShipment(id: string) {
-  return repository.findShipmentById(id);
+  const shipment = await repository.findById(id);
+
+  if (!shipment) {
+    throw new NotFoundError("Shipment not found");
+  }
+
+  return shipment;
 }
 
 export async function createShipment(data: any) {
-  return repository.createShipment(data);
+  return repository.create(data);
+}
+
+export async function updateShipment(id: string, data: any) {
+  await getShipment(id);
+
+  return repository.update(id, data);
 }
 
 export async function deleteShipment(id: string) {
-  return repository.deleteShipment(id);
+  await getShipment(id);
+
+  return repository.remove(id);
 }
