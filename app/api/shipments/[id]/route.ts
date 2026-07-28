@@ -1,75 +1,24 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { success, failure } from "@/utils/response";
+import * as shipmentService from "@/services/shipment.service";
+import { AppError } from "@/utils/errors";
 
-// GET one shipment
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
-) {
-  const shipment = await prisma.shipment.findUnique({
-    where: { id: params.id },
-    include: {
-      expeditor: true,
-      Booking: true,
-    },
-  });
-
-  if (!shipment) {
-    return NextResponse.json(
-      { error: "Not found" },
-      { status: 404 }
-    );
-  }
-
-  return NextResponse.json(shipment);
-}
-
-// UPDATE shipment
-export async function PUT(
-  req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const body = await req.json();
+    const { id } = await params;
 
-    const updated = await prisma.shipment.update({
-      where: { id: params.id },
-      data: {
-        title: body.title,
-        description: body.description,
-        origin: body.origin,
-        destination: body.destination,
-        weight: body.weight ? Number(body.weight) : undefined,
-        status: body.status,
-      },
-    });
+    const shipment = await shipmentService.getShipment(id);
 
-    return NextResponse.json(updated);
+    return success(shipment);
   } catch (error) {
     console.error(error);
-    return NextResponse.json(
-      { error: "Update failed" },
-      { status: 500 }
-    );
-  }
-}
 
-// DELETE shipment
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
-  try {
-    await prisma.shipment.delete({
-      where: { id: params.id },
-    });
+    if (error instanceof AppError) {
+      return failure(error.message, error.status);
+    }
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { error: "Delete failed" },
-      { status: 500 }
-    );
+    return failure("Internal server error", 500);
   }
 }
