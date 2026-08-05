@@ -8,24 +8,17 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String?
-  email     String   @unique
-  password  String?
-  role      Role     @default(EXPEDITOR)
-  createdAt DateTime @default(now())
-
-  // relations expeditor
-  shipments Shipment[] @relation("UserShipments")
-
-  // relations transporter
+  id                      String                  @id @default(cuid())
+  name                    String?
+  email                   String                  @unique
+  password                String?
+  role                    Role                    @default(EXPEDITOR)
+  createdAt               DateTime                @default(now())
+  accounts                Account[]
+  bookings                Booking[]
+  sessions                Session[]
+  shipments               Shipment[]              @relation("UserShipments")
   transportAvailabilities TransportAvailability[] @relation("UserTransportAvailabilities")
-
-  // bookings
-  bookings Booking[]
-
-  accounts Account[]
-  sessions Session[]
 }
 
 model Shipment {
@@ -38,10 +31,9 @@ model Shipment {
   weight      Float
   status      ShipmentStatus @default(PENDING)
   createdAt   DateTime       @default(now())
-
   expeditorId String
-  expeditor   User      @relation("UserShipments", fields: [expeditorId], references: [id])
   Booking     Booking[]
+  expeditor   User           @relation("UserShipments", fields: [expeditorId], references: [id])
 }
 
 model TransportAvailability {
@@ -53,25 +45,51 @@ model TransportAvailability {
   capacity      Float
   notes         String?
   createdAt     DateTime  @default(now())
-
   transporterId String
-  transporter   User      @relation("UserTransportAvailabilities", fields: [transporterId], references: [id])
   Booking       Booking[]
+  transporter   User      @relation("UserTransportAvailabilities", fields: [transporterId], references: [id])
 }
 
 model Booking {
-  id        String        @id @default(cuid())
-  status    BookingStatus @default(PENDING)
-  createdAt DateTime      @default(now())
-
-  shipmentId    String
-  transporterId String
-
-  shipment    Shipment @relation(fields: [shipmentId], references: [id])
-  transporter User     @relation(fields: [transporterId], references: [id])
-
+  id                      String                 @id @default(cuid())
+  status                  BookingStatus          @default(PENDING)
+  createdAt               DateTime               @default(now())
+  shipmentId              String
+  transporterId           String
   transportAvailabilityId String?
+  shipment                Shipment               @relation(fields: [shipmentId], references: [id])
   transportAvailability   TransportAvailability? @relation(fields: [transportAvailabilityId], references: [id])
+  transporter             User                   @relation(fields: [transporterId], references: [id])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
 }
 
 enum Role {
@@ -92,36 +110,4 @@ enum BookingStatus {
   ACCEPTED
   REJECTED
   CANCELLED
-}
-
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
